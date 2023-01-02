@@ -2,4 +2,12 @@
 
 {% block content %}
     <h1>Profiles Index</h1>
+<ul>
+
+    (% for profile in profiles: %)
+        <li>
+            {{ profile["last_name"] }}, {{ profile["first_name"] }}
+        </li>
+    (% endfor %}
+</ul>
 {% endblock %}

@@ -9,3 +9,6 @@ content-type: application/json
     "name": "John Doe",
     "email": "asdf@yml.com"
 }
+
+###
+GET http://bvme.azurewebsites.net/api/profiles
