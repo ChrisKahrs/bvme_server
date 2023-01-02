@@ -1,0 +1,9 @@
+GET http://localhost:5000/api/profiles
+
+###
+
+POST http://localhost:5000/api/profiles
+{
+    "name": "John Doe",
+    "email": "asdf@yml.com"
+}
