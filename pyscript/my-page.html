@@ -1,0 +1,14 @@
+<py-script src="circle.py"></py-script>
+<div class="grid p-4 m-auto bg-blue-100 border-2">
+    <canvas id="circle-canvas" width="500" height="500" class="m-auto border-2" ></canvas>
+    <div id="button-holder" class="flex w-full mt-2 justify-evenly"><button id="undo" class="px-6 bg-green-200 border-2 rounded-lg">Undo</button><button id="redo" class="px-6 bg-green-200 border-2 rounded-lg">Redo</button></div>
+</div>
+
+<link rel ="stylesheet" type="text/css" href="./context-menu.css">
+<div id="right-click-menu" class="absolute bg-gray-200 border-1" 
+    style="display: none">
+    <div class="mx-4 my-2">
+        <p id="circle-slider-label">Adjust diameter of Circle at (x, y)</p>
+        <div class="w-full m-auto"><input type="range" min="1" max="100" value="50" id="circle-slider" class="w-5/6"></div>
+    </div>
+</div>
