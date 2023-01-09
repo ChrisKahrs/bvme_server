@@ -10,4 +10,16 @@ content-type: application/json
 }
 
 ###
-GET http://bvme.azurewebsites.net/api/profiles
+POST http://localhost:5000/api/reset HTTP/1.1
+content-type: application/json
+
+{
+    "seed": "42"
+}
+###
+POST http://localhost:5000/api/step HTTP/1.1
+content-type: application/json
+
+{
+    "action": "1"
+}

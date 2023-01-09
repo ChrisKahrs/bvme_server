@@ -1,15 +1,23 @@
 from flask import Flask, render_template, request
 from flask_restful import Api
+import gymnasium as gym
+
 
 from .api.game import GameResource
+from .api.reset import ResetResource
+from .api.step import StepResource
 
 app = Flask(__name__)
 api = Api(app, prefix= '/api')
+env = gym.make("Blackjack-v1")
 
 api.add_resource(GameResource, '/game')
+api.add_resource(ResetResource, '/reset', resource_class_kwargs={ 'env': env })
+api.add_resource(StepResource, '/step', resource_class_kwargs={ 'env': env })
 
 @app.route('/')
 def index():
+
     return render_template("index.html", content="Welcome to the Blackjack Game!")
 
 @app.route("/play", methods=["POST", "GET"])
