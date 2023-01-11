@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 from flask_restful import Api
 import gymnasium as gym
+import requests 
+import json
 
 
 from .api.game import GameResource
@@ -15,6 +17,7 @@ api.add_resource(GameResource, '/game')
 api.add_resource(ResetResource, '/reset', resource_class_kwargs={ 'env': env })
 api.add_resource(StepResource, '/step', resource_class_kwargs={ 'env': env })
 
+@app.route('/api/reset', methods=["POST"])
 @app.route('/')
 def index():
 
@@ -28,5 +31,9 @@ def play():
         elif request.form["HitStick"] == "Stick":
             return render_template("index.html", content="Stick")
     else:
-        return render_template("play.html", dealer_card="4", player_card="5")
+        response = requests.post("http://localhost:5000/api/reset", json= {"seed": 42})
+        print("response: ", response)
+        prediction = response.json()
+        print("prediction: ", prediction)
+        return render_template("play.html", dealer_card="4", player_card=prediction["player_sum"])
 

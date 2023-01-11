@@ -8,3 +8,6 @@ with open('profiles.json', 'r') as f:
 class ProfileResource(Resource):
     def get(self):
         return sorted(db, key=lambda k: k['last_name'])
+    
+    def post(self):
+        return {"a": "c"}
