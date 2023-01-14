@@ -1,13 +1,13 @@
 ### old use starup2.py method
 # 
 # 
-# from flask import Flask, redirect, url_for, render_template, request, session, flash
+from flask import Flask, redirect, url_for, render_template, request, session, flash
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template("index.html", content="Welcome to the Blackjack Game!")
+    return render_template("index.html", content="Welcome to the Blackjack Game1!")
 
 @app.route("/play", methods=["POST", "GET"])
 def play():
