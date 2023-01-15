@@ -15,7 +15,7 @@ class ResetResource(Resource):
     def post(self):
         print("request", request.json)
         data = json.loads(request.json)
-        # data = request.json (depending where called from)
+        # data = request.json (depending where)
 
         if "seed" in data.keys():
             seed = int(data["seed"])
@@ -23,5 +23,5 @@ class ResetResource(Resource):
             seed = 42
         obs, info = self.env.reset(seed=seed)
         print("reset obs: ", obs)
-        return { "player_sum": str(obs[0]), "dealer_sum": str(obs[1]), "usable_ace": str(obs[2]) }
+        return { "player_sum": str(obs[0]), "dealer_sum": str(obs[1]), "usable_ace": str(obs[2]), "seed" : str(seed) }
         

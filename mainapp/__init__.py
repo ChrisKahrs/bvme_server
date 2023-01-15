@@ -18,16 +18,16 @@ api.add_resource(GameResource, '/game')
 api.add_resource(ResetResource, '/reset', resource_class_kwargs={ 'env': env })
 api.add_resource(StepResource, '/step', resource_class_kwargs={ 'env': env })
 
-def fromReset():
+def fromReset(seed):
     sendit = {
-        "seed": random.randint(0, 100)
+        "seed": seed
     }
     response = requests.request("POST","http://localhost:5222/api/reset", 
                                 json= json.dumps(sendit), 
                                 headers={"content-type": "application/json"})
     print("response: ", response)
     data = response.json()
-    print("data: ", data["player_sum"])
+    print("ace: ", data["usable_ace"])
     return data
 
 @app.route('/api/reset', methods=["POST"])
@@ -43,9 +43,10 @@ def play():
         elif request.form["HitStick"] == "Stick":
             return render_template("index.html", content="Stick")
         elif request.form["HitStick"] == "Reset":
-            return fromReset()
+            data1 = fromReset(request.form["seed"])
+            return  render_template("play.html", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], seed=data1["seed"])
     else:
         #reset and give cards
-        data1 = fromReset()
-        return  render_template("play.html", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"])
+        data1 = fromReset(seed=42)
+        return  render_template("play.html", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], seed=data1["seed"])
 

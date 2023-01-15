@@ -11,6 +11,9 @@
     <form action="#" method="post">
         <p>Dealer Sum: {{ dealer_card }}
         <p>Your Sum:   <input type="text" name="guess" id="guess" value={{player_card}}>
+        <p>Usable Ace: {{ usable_ace }}
+        <p>Seed: {{ seed }}
+        <p>Input Seed:  <input type="text" name="seed" id="seed" value={{seed}}></p>
         <p><input type="submit" name="HitStick" value="Hit"><input type="submit" name="HitStick" value="Stick">
             <input type="submit" name="HitStick" value="Reset">
     </form>
