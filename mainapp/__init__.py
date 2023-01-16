@@ -19,16 +19,21 @@ api.add_resource(ResetResource, '/reset', resource_class_kwargs={ 'env': env })
 api.add_resource(StepResource, '/step', resource_class_kwargs={ 'env': env })
 
 def fromReset(seed):
-    sendit = {
-        "seed": seed
-    }
+    sendit = {"seed": seed}
     response = requests.request("POST","http://localhost:5222/api/reset", 
                                 json= json.dumps(sendit), 
                                 headers={"content-type": "application/json"})
-    print("response: ", response)
-    data = response.json()
-    print("ace: ", data["usable_ace"])
-    return data
+    return response.json()
+
+def fromStep(action, seed):
+    sendit = {"action": str(action),
+              "seed": str(seed)}
+    print("sendit", sendit)
+    response = requests.request("POST","http://localhost:5222/api/step", 
+                                json= json.dumps(sendit), 
+                                headers={"content-type": "application/json"})
+    print("response", response.json())
+    return response.json()
 
 @app.route('/api/reset', methods=["POST"])
 @app.route('/')
@@ -37,16 +42,18 @@ def index():
 
 @app.route("/play", methods=["POST", "GET"])
 def play():
+    data1 = {}
     if request.method == "POST":
         if request.form["HitStick"] == "Hit":
-            return render_template("index.html", content="Hit")
+            data1 = fromStep(1,request.form["seed"])
+            return render_template("play.html",last_action="Hit", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], reward=data1["reward"], seed=data1["seed"])
         elif request.form["HitStick"] == "Stick":
-            return render_template("index.html", content="Stick")
+            data1 = fromStep(0,request.form["seed"])
+            return render_template("play.html",last_action="Stick", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], reward=data1["reward"], seed=data1["seed"])
         elif request.form["HitStick"] == "Reset":
             data1 = fromReset(request.form["seed"])
-            return  render_template("play.html", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], seed=data1["seed"])
+            return render_template("play.html",last_action="Reset", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], seed=data1["seed"])
     else:
-        #reset and give cards
         data1 = fromReset(seed=42)
-        return  render_template("play.html", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], seed=data1["seed"])
+        return render_template("play.html",last_action="Reset Start", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], seed=data1["seed"])
 
