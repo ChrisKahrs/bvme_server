@@ -13,13 +13,20 @@ app = Flask(__name__)
 api = Api(app, prefix= '/api')
 env = gym.make("Blackjack-v1")
 
+LOCAL = False
+if LOCAL:
+    prefix = "http://localhost:5222"
+else:
+    prefix = "https://bvme.azurewebsites.net"
+
 api.add_resource(GameResource, '/game')
 api.add_resource(ResetResource, '/reset', resource_class_kwargs={ 'env': env })
 api.add_resource(StepResource, '/step', resource_class_kwargs={ 'env': env })
 
 def fromReset(seed):
     sendit = {"seed": seed}
-    response = requests.request("POST","http://localhost:5222/api/reset", 
+    
+    response = requests.request("POST",LOCAL + "/api/reset", 
                                 json= json.dumps(sendit), 
                                 headers={"content-type": "application/json"})
     return response.json()
@@ -28,7 +35,7 @@ def fromStep(action, seed):
     sendit = {"action": str(action),
               "seed": str(seed)}
     print("sendit", sendit)
-    response = requests.request("POST","http://localhost:5222/api/step", 
+    response = requests.request("POST",LOCAL + "/api/step", 
                                 json= json.dumps(sendit), 
                                 headers={"content-type": "application/json"})
     print("response", response.json())
