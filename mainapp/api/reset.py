@@ -23,5 +23,11 @@ class ResetResource(Resource):
             seed = 42
         obs, info = self.env.reset(seed=seed)
         print("reset obs: ", obs)
-        return { "player_sum": str(obs[0]), "dealer_sum": str(obs[1]), "usable_ace": str(obs[2]), "seed" : str(seed) }
+        hist = f"Deal, Player Total: {obs[0]}, Usable Ace: {obs[2]}"
+        print("hist: ", hist)
+        return {"player_sum": str(obs[0]), 
+                "dealer_sum": str(obs[1]), 
+                "usable_ace": str(obs[2]),
+                "history": hist,
+                "seed": str(seed)}
         

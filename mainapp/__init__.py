@@ -5,7 +5,6 @@ import requests
 import json
 import random
 
-
 from .api.game import GameResource
 from .api.reset import ResetResource
 from .api.step import StepResource
@@ -35,6 +34,9 @@ def fromStep(action, seed):
     print("response", response.json())
     return response.json()
 
+def fromBonsai(seed):
+    pass
+
 @app.route('/api/reset', methods=["POST"])
 @app.route('/')
 def index():
@@ -46,14 +48,17 @@ def play():
     if request.method == "POST":
         if request.form["HitStick"] == "Hit":
             data1 = fromStep(1,request.form["seed"])
-            return render_template("play.html",last_action="Hit", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], reward=data1["reward"], seed=data1["seed"])
+            return render_template("play.html",last_action="Hit", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], terminated=data1["terminated"], reward=data1["reward"], history=data1["history"], seed=data1["seed"])
         elif request.form["HitStick"] == "Stick":
             data1 = fromStep(0,request.form["seed"])
-            return render_template("play.html",last_action="Stick", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], reward=data1["reward"], seed=data1["seed"])
+            return render_template("play.html",last_action="Stick", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], terminated=data1["terminated"], reward=data1["reward"], history=data1["history"], seed=data1["seed"])
         elif request.form["HitStick"] == "Reset":
             data1 = fromReset(request.form["seed"])
-            return render_template("play.html",last_action="Reset", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], seed=data1["seed"])
+            return render_template("play.html",last_action="Reset", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], history=data1["history"],seed=data1["seed"])
+        elif request.form["HitStick"] == "Bonsai":
+            data1 = fromBonsai(request.form["seed"])
+            return render_template("play.html",last_action="Bonsai", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], history=data1["history"],seed=data1["seed"])
     else:
         data1 = fromReset(seed=42)
-        return render_template("play.html",last_action="Reset Start", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], seed=data1["seed"])
+        return render_template("play.html",last_action="Reset Start", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], history=data1["history"], seed=data1["seed"])
 
