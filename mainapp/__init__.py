@@ -26,7 +26,8 @@ api.add_resource(StepResource, '/step', resource_class_kwargs={ 'env': env })
 def fromReset(seed):
     sendit = {"seed": str(seed)}
     response = requests.request("POST",prefix + "/api/reset", 
-                                json= json.dumps(sendit), 
+                                # json= json.dumps(sendit), 
+                                json = sendit,
                                 headers={"content-type": "application/json"})
     print("response status code: ", response.status_code)
     if response.status_code == 200:
@@ -42,7 +43,7 @@ def fromStep(action, seed):
               "seed": str(seed)}
     print("sendit", sendit)
     response = requests.request("POST",prefix + "/api/step", 
-                                json= json.dumps(sendit), 
+                                json = sendit,
                                 headers={"content-type": "application/json"})
     print("response", response.json())
     return response.json()

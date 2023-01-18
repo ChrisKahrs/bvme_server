@@ -35,7 +35,8 @@ else:
     
 print("prefix: ", prefix)
 response = requests.request("POST",prefix + "/api/reset", 
-                            json= json.dumps(sendit), 
+                            # json= json.dumps(sendit), 
+                            json = sendit,
                             headers={"content-type": "application/json"})
 print("response: ", response.json())
 full = response.json()
