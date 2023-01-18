@@ -24,7 +24,7 @@ api.add_resource(ResetResource, '/reset', resource_class_kwargs={ 'env': env })
 api.add_resource(StepResource, '/step', resource_class_kwargs={ 'env': env })
 
 def fromReset(seed):
-    sendit = {"seed": seed}
+    sendit = {"seed": str(seed)}
     response = requests.request("POST",prefix + "/api/reset", 
                                 json= json.dumps(sendit), 
                                 headers={"content-type": "application/json"})
