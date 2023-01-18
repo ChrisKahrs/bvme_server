@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 from flask_restful import Api
 import gymnasium as gym
-import requests 
+import requests
+from flask_cors import CORS
 import json
 import random
 
@@ -9,7 +10,9 @@ from .api.game import GameResource
 from .api.reset import ResetResource
 from .api.step import StepResource
 
+
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 api = Api(app, prefix= '/api')
 env = gym.make("Blackjack-v1")
 
