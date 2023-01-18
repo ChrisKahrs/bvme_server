@@ -27,7 +27,14 @@ sendit = {
     "seed": 44
 }
 
-response = requests.request("POST","http://localhost:5222/api/reset", 
+LOCAL = False
+if LOCAL:
+    prefix = "http://localhost:5222"
+else:
+    prefix = "https://bvme.azurewebsites.net"
+    
+
+response = requests.request("POST",prefix + "/api/reset", 
                             json= json.dumps(sendit), 
                             headers={"content-type": "application/json"})
 print("response: ", response.json())
