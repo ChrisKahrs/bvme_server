@@ -14,8 +14,8 @@ class ResetResource(Resource):
     
     def post(self):
         print("request", request.json)
-        # data = json.loads(request.json)
-        data = request.json #(depending where)
+        data = json.loads(request.json)
+        # data = request.json #(depending where)
 
         if "seed" in data.keys():
             seed = int(data["seed"])
