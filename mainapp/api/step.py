@@ -13,7 +13,7 @@ class StepResource(Resource):
     
     def post(self):
         print("in post")
-        data = json.loads(request.json)
+        data = request.json
         print("data type: ", type(data))
         action = data["action"]
         print("action: ", action)

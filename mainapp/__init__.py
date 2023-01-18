@@ -12,7 +12,7 @@ from .api.step import StepResource
 
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 api = Api(app, prefix= '/api')
 env = gym.make("Blackjack-v1")
 
@@ -21,7 +21,7 @@ if LOCAL:
     prefix = "http://localhost:5222"
 else:
     prefix = "https://bvme.azurewebsites.net"
-
+    
 api.add_resource(GameResource, '/game')
 api.add_resource(ResetResource, '/reset', resource_class_kwargs={ 'env': env })
 api.add_resource(StepResource, '/step', resource_class_kwargs={ 'env': env })
@@ -49,7 +49,15 @@ def fromStep(action, seed):
                                 json = sendit,
                                 headers={"content-type": "application/json"})
     print("response", response.json())
-    return response.json()
+    print("response status code: ", response.status_code)
+    if response.status_code == 200:
+        return response.json()
+    return  {"player_sum": "1", 
+                "dealer_sum": "1", 
+                "usable_ace": str(False),
+                "history": "not right",
+                "terminated": str(False),
+                "seed": str(seed)}
 
 def fromBonsai(seed):
     pass
@@ -78,6 +86,7 @@ def play():
             return render_template("play.html",last_action="Bonsai", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], history=data1["history"],seed=data1["seed"])
     else:
         print("in main page reset")
+        return render_template("index.html", content="Welcome to the Blackjack Game3!")
         data1 = fromReset(seed=42)
         return render_template("play.html",last_action="Reset Start", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], history=data1["history"], seed=data1["seed"])
 
