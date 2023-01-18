@@ -29,6 +29,8 @@ class ResetResource(Resource):
         return {"player_sum": str(obs[0]), 
                 "dealer_sum": str(obs[1]), 
                 "usable_ace": str(obs[2]),
+                "terminated": str(False),
+                "reward": "0.0",
                 "history": hist,
                 "seed": str(seed)}
         
