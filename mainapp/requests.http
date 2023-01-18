@@ -10,12 +10,10 @@ content-type: application/json
 }
 
 ###
-POST http://bvme.azurewebsites.net/api/reset HTTP/1.1
+POST https://bvme.azurewebsites.net/api/reset HTTP/1.1
 content-type: application/json
 
-{
-    "seed": "42"
-}
+{"seed": 42}
 
 ###
 POST http://localhost:5222/api/step HTTP/1.1
