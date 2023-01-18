@@ -44,7 +44,7 @@ def fromStep(action, seed):
 def fromBonsai(seed):
     pass
 
-@app.route('/api/reset', methods=["POST"])
+# @app.route('/api/reset', methods=["POST"])
 @app.route('/')
 def index():
     return render_template("index.html", content="Welcome to the Blackjack Game2!")
