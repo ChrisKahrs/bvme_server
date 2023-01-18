@@ -31,7 +31,11 @@ def fromReset(seed):
     print("response status code: ", response.status_code)
     if response.status_code == 200:
         return response.json()
-    return {}
+    return  {"player_sum": "1", 
+                "dealer_sum": "1", 
+                "usable_ace": str(False),
+                "history": "not right",
+                "seed": str(seed)}
 
 def fromStep(action, seed):
     sendit = {"action": str(action),

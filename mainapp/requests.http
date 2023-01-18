@@ -10,7 +10,7 @@ content-type: application/json
 }
 
 ###
-POST http://localhost:5222/api/reset HTTP/1.1
+POST http://bvme.azurewebsites.net/api/reset HTTP/1.1
 content-type: application/json
 
 {
