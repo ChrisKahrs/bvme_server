@@ -10,6 +10,7 @@ class ResetResource(Resource):
     # list of players from session?  Dictionary with env pointer?
     
     def get(self):
+        print("in get in reset")
         return {"dealer_card": "4", "player_card": "5"}
     
     def post(self):

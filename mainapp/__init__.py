@@ -73,6 +73,7 @@ def play():
             data1 = fromBonsai(request.form["seed"])
             return render_template("play.html",last_action="Bonsai", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], history=data1["history"],seed=data1["seed"])
     else:
+        print("in main page reset")
         data1 = fromReset(seed=42)
         return render_template("play.html",last_action="Reset Start", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], history=data1["history"], seed=data1["seed"])
 
