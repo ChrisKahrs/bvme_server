@@ -59,6 +59,7 @@ def index():
 @app.route("/play", methods=["POST", "GET"])
 def play():
     data1 = {}
+    print("in play")
     if request.method == "POST":
         if request.form["HitStick"] == "Hit":
             data1 = fromStep(1,request.form["seed"])
