@@ -23,23 +23,23 @@ import gymnasium as gym
 #     "email": "asdf@yml.com"
 # }
 
-sendit = {
-    "seed": 44
-}
+# sendit = {
+#     "seed": 44
+# }
 
-LOCAL = False
-if LOCAL:
-    prefix = "http://localhost:5222"
-else:
-    prefix = "https://bvme.azurewebsites.net"
+# LOCAL = False
+# if LOCAL:
+#     prefix = "http://localhost:5222"
+# else:
+#     prefix = "https://bvme.azurewebsites.net"
     
 
-response = requests.request("POST",prefix + "/api/reset", 
-                            json= json.dumps(sendit), 
-                            headers={"content-type": "application/json"})
-print("response: ", response.json())
-full = response.json()
-print("full: ", full["player_sum"])
+# response = requests.request("POST",prefix + "/api/reset", 
+#                             json= json.dumps(sendit), 
+#                             headers={"content-type": "application/json"})
+# print("response: ", response.json())
+# full = response.json()
+# print("full: ", full["player_sum"])
 
 # POST http://localhost:5000/api/reset HTTP/1.1
 # content-type: application/json
