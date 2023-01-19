@@ -38,7 +38,9 @@ def fromReset(seed):
     return  {"player_sum": "1", 
                 "dealer_sum": "1", 
                 "usable_ace": str(False),
-                "history": "not right",
+                "history": "not right" + str(response.status_code),
+                "terminated": str(False),
+                "reward": "0.0",
                 "seed": str(seed)}
 
 def fromStep(action, seed):
@@ -55,8 +57,9 @@ def fromStep(action, seed):
     return  {"player_sum": "1", 
                 "dealer_sum": "1", 
                 "usable_ace": str(False),
-                "history": "not right",
+                "history": "not right" + str(response.status_code),
                 "terminated": str(False),
+                "reward": "0.0",
                 "seed": str(seed)}
 
 def fromBonsai(seed):
@@ -80,10 +83,10 @@ def play():
             return render_template("play.html",last_action="Stick", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], terminated=data1["terminated"], reward=data1["reward"], history=data1["history"], seed=data1["seed"])
         elif request.form["HitStick"] == "Reset":
             data1 = fromReset(request.form["seed"])
-            return render_template("play.html",last_action="Reset", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], history=data1["history"],seed=data1["seed"])
+            return render_template("play.html",last_action="Reset", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], terminated=data1["terminated"], reward=data1["reward"], history=data1["history"],seed=data1["seed"])
         elif request.form["HitStick"] == "Bonsai":
             data1 = fromBonsai(request.form["seed"])
-            return render_template("play.html",last_action="Bonsai", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], history=data1["history"],seed=data1["seed"])
+            return render_template("play.html",last_action="Bonsai", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], terminated=data1["terminated"], reward=data1["reward"], history=data1["history"],seed=data1["seed"])
     else:
         print("in main page reset")
         # return render_template("index.html", content="Welcome to the Blackjack Game3!")
