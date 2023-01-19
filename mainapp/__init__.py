@@ -5,6 +5,11 @@ import requests
 from flask_cors import CORS
 import json
 import random
+import warnings
+
+
+
+
 
 from .api.game import GameResource
 from .api.reset import ResetResource
@@ -73,6 +78,7 @@ def index():
 @app.route("/play", methods=["POST", "GET"])
 def play():
     data1 = {}
+    warnings.warn('Warning Message: 4')
     print("in play")
     if request.method == "POST":
         if request.form["HitStick"] == "Hit":
