@@ -28,14 +28,13 @@ api.add_resource(StepResource, '/step', resource_class_kwargs={ 'env': env })
 
 def fromReset(seed):
     sendit = {"seed": str(seed)}
-    response.status_code = 300
     # response = requests.request("POST",prefix + "/api/reset", 
     #                             # json= json.dumps(sendit), 
     #                             json = sendit,
     #                             headers={"content-type": "application/json"})
-    print("response status code: ", response.status_code)
-    if response.status_code == 200:
-        return response.json()
+    # print("response status code: ", response.status_code)
+    # if response.status_code == 200:
+    #     return response.json()
     return  {"player_sum": "1", 
                 "dealer_sum": "1", 
                 "usable_ace": str(False),
