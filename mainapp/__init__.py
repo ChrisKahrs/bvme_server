@@ -7,10 +7,6 @@ import json
 import random
 import warnings
 
-
-
-
-
 from .api.game import GameResource
 from .api.reset import ResetResource
 from .api.step import StepResource
@@ -20,6 +16,7 @@ app = Flask(__name__)
 # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 api = Api(app, prefix= '/api')
 env = gym.make("Blackjack-v1")
+env.reset(42)
 
 LOCAL = False
 if LOCAL:
@@ -82,6 +79,7 @@ def play():
     print("in play")
     if request.method == "POST":
         if request.form["HitStick"] == "Hit":
+            warnings.warn('Warning Message: Hit')
             data1 = fromStep(1,request.form["seed"])
             return render_template("play.html",last_action="Hit", dealer_card=data1["dealer_sum"], player_card=data1["player_sum"], usable_ace=data1["usable_ace"], terminated=data1["terminated"], reward=data1["reward"], history=data1["history"], seed=data1["seed"])
         elif request.form["HitStick"] == "Stick":
