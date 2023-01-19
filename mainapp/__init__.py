@@ -2,15 +2,12 @@ from flask import Flask, render_template, request
 from flask_restful import Api
 import gymnasium as gym
 import requests
-from flask_cors import CORS
-import json
-import random
+# from flask_cors import CORS
 import warnings
 
 from .api.game import GameResource
 from .api.reset import ResetResource
 from .api.step import StepResource
-
 
 app = Flask(__name__)
 # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -30,17 +27,23 @@ api.add_resource(StepResource, '/step', resource_class_kwargs={ 'env': env })
 
 def fromReset(seed):
     sendit = {"seed": str(seed)}
-    # response = requests.request("POST",prefix + "/api/reset", 
-    #                             # json= json.dumps(sendit), 
-    #                             json = sendit,
-    #                             headers={"content-type": "application/json"})
-    # print("response status code: ", response.status_code)
-    # if response.status_code == 200:
-    #     return response.json()
-    return  {"player_sum": "1", 
+    warnings.warn('in reset1 ' + str(sendit))
+    try:
+        response = None
+        response = requests.request("POST",prefix + "/api/reset", 
+                                    # json= json.dumps(sendit), 
+                                    json = sendit,
+                                    headers={"content-type": "application/json"})
+        warnings.warn("post call in reset")
+        warnings.warn("response status code: ", response.status_code)
+        if response.status_code == 200:
+            return response.json()
+    except:
+        warnings.warn("in except for reset")
+        return  {"player_sum": "1", 
                 "dealer_sum": "1", 
                 "usable_ace": str(False),
-                "history": "not right", #+ str(response.status_code),
+                "history": "not right reset",
                 "terminated": str(False),
                 "reward": "0.0",
                 "seed": str(seed)}
