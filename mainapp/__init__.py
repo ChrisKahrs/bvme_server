@@ -16,7 +16,7 @@ app = Flask(__name__)
 # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 api = Api(app, prefix= '/api')
 env = gym.make("Blackjack-v1")
-env.reset(42)
+obs, info = env.reset(seed=42)
 
 LOCAL = False
 if LOCAL:
