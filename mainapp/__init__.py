@@ -38,7 +38,7 @@ def fromReset(seed):
     return  {"player_sum": "1", 
                 "dealer_sum": "1", 
                 "usable_ace": str(False),
-                "history": "not right" + str(response.status_code),
+                "history": "not right", #+ str(response.status_code),
                 "terminated": str(False),
                 "reward": "0.0",
                 "seed": str(seed)}
