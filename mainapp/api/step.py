@@ -2,6 +2,7 @@ import json
 from flask import request
 from flask_restful import Resource
 import gymnasium as gym
+import warnings
 
 class StepResource(Resource):
     
@@ -12,11 +13,11 @@ class StepResource(Resource):
         return {"dealer_card": "4", "player_card": "5"}
     
     def post(self):
-        print("in post")
+        warnings.warn("in post")
         data = request.json
         print("data type: ", type(data))
         action = data["action"]
-        print("action: ", action)
+        warnings.warn(f"action: {action}")
         obs, reward, terminated, truncated, info = self.env.step(int(data["action"]))
         if action == "1":
             hist = f"Hit, Player Total: {obs[0]}, Usable Ace: {obs[2]}\n"
