@@ -18,7 +18,7 @@ class ResetResource(Resource):
         warnings.warn("in full reset")
         try:
                 # data = request.get_json()?
-            warnings.warn("request" + str(request.json))
+            warnings.warn("request type" + str(type(request.json)))
             # data = json.loads(request.json)
             data = request.json #(depending where)
 
@@ -26,6 +26,7 @@ class ResetResource(Resource):
                 seed = int(data["seed"])
             else:
                 seed = 42
+            warnings.warn("request seed" + str(seed))
             obs, info = self.env.reset(seed=seed)
             print("reset obs: ", obs)
             hist = f"Deal, Player Total: {obs[0]}, Usable Ace: {obs[2]}"
