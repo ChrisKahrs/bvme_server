@@ -20,7 +20,7 @@ class ResetResource(Resource):
                 # data = request.get_json()?
             warnings.warn("request type" + str(type(request.json)))
             # data = json.loads(request.json)
-            data = request.json #(depending where)
+            data = json.loads(request.json) #(depending where)
 
             if "seed" in data.keys():
                 seed = int(data["seed"])

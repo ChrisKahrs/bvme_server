@@ -14,7 +14,7 @@ class StepResource(Resource):
     
     def post(self):
         warnings.warn("in post")
-        data = request.json
+        data = json.loads(request.json)
         print("data type: ", type(data))
         action = data["action"]
         warnings.warn(f"action: {action}")

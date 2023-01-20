@@ -10,11 +10,12 @@ content-type: application/json
 }
 
 ###
-POST https://bvme.azurewebsites.net/api/step HTTP/1.1
+POST https://bvme.azurewebsites.net/api/reset HTTP/1.1
 content-type: application/json
 
 {
-    "seed" : "1",
+    "playerId": "asdf",
+    "seed" : "42",
     "action": "1"
 }
 
